@@ -6,7 +6,7 @@
   "license": "MIT AND GPL-2.0",
   "scripts": {
     "build": "tsc -p .",
-    "fmt": "prettier --write **/*.ts"
+    "fmt": "prettier --write **/*.ts **/*.md"
   },
   "devDependencies": {
     "@gplane/tsconfig": "^5.0.0",
