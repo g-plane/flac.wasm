@@ -17,7 +17,7 @@ jobs:
     - name: Setup emscripten
       uses: mymindstorm/setup-emsdk@v11
     - name: Setup pnpm
-      uses: pnpm/action-setup@v1.2.1
+      uses: pnpm/action-setup@v2.0.1
       with:
         version: 6.26.1
         run_install: true
