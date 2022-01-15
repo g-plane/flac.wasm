@@ -4,21 +4,11 @@ Run official FLAC tools `flac` and `metaflac` as WebAssembly, on browsers or Den
 
 > Currently we have no plans on supporting Node.js.
 
-## `flac`
+## Usage
 
-### Installation
+For usage of `flac`, please refer to [its documentation](./wasm/flac/README.md).
 
-```
-npm i flac.wasm
-```
-
-## `metaflac`
-
-### Installation
-
-```
-npm i metaflac.wasm
-```
+For usage of `metaflac`, please refer to [its documentation](./wasm/metaflac/README.md).
 
 ## License
 
@@ -28,4 +18,4 @@ For details, please refer to their [license file](https://github.com/xiph/flac/b
 This repository contains wrapper for running those executables on browsers and other environments
 and scripts for building WebAssembly. Those parts are licensed under [MIT](./LICENSE).
 
-Due to using `flac` and/or `metaflac` indirectly, you may need to use GPL license in your projects.
+Due to using `flac` and/or `metaflac` indirectly, you may be required to use GPL license in your projects.
