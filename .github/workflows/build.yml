@@ -13,7 +13,7 @@ jobs:
     - name: Install Linux packages
       run: |
         sudo apt-get update
-        sudo apt-get install -y libtool-bin libogg-dev
+        sudo apt-get install -y libtool-bin libogg-dev doxygen libxml2-utils w3c-sgml-lib
     - name: Setup emscripten
       uses: mymindstorm/setup-emsdk@v11
     - name: Setup pnpm
