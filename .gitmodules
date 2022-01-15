@@ -1,0 +1,3 @@
+[submodule "flac"]
+	path = flac
+	url = https://github.com/xiph/flac.git

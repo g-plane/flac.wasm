@@ -1,0 +1,29 @@
+lockfileVersion: 5.3
+
+specifiers:
+  '@gplane/tsconfig': ^5.0.0
+  prettier: ^2.5.1
+  typescript: ^4.5.4
+
+devDependencies:
+  '@gplane/tsconfig': 5.0.0
+  prettier: 2.5.1
+  typescript: 4.5.4
+
+packages:
+
+  /@gplane/tsconfig/5.0.0:
+    resolution: {integrity: sha512-RgyxDE865mkyME4qavYnVg3L2EzWJXMGgMAyZEKvkHL200vRBWpkrpgwYdib1RFk9NhigczHntTdc6tRsvjDiQ==}
+    dev: true
+
+  /prettier/2.5.1:
+    resolution: {integrity: sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
+
+  /typescript/4.5.4:
+    resolution: {integrity: sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
