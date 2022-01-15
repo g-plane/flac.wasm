@@ -11,13 +11,16 @@ export interface Output {
   exitCode: number
   stdout: string
   stderr: string
-  file: Uint8Array | undefined
+  /** Outputted file. It will be `null` if file isn't existed. */
+  file: Uint8Array | null
 }
 
-export async function flac(
-  args: string[],
-  { inputFileName, inputFile, outputFileName }: Options
-): Promise<Output> {
+/**
+ * @param args CLI arguments passed to the `flac` executable
+ * @param options additional options
+ */
+export async function flac(args: string[], options: Options): Promise<Output> {
+  const { inputFileName, inputFile, outputFileName } = options
   let stdout = ''
   let stderr = ''
   const { FS, callMain } = await loadModule({
@@ -40,7 +43,7 @@ export async function flac(
       exitCode,
       stdout,
       stderr,
-      file: undefined,
+      file: null,
     }
   }
 

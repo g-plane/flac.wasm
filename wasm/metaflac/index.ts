@@ -11,13 +11,19 @@ export interface Output {
   exitCode: number
   stdout: string
   stderr: string
-  file: Uint8Array | undefined
+  /** Outputted file. It will be `null` if file isn't existed. */
+  file: Uint8Array | null
 }
 
+/**
+ * @param args CLI arguments passed to the `metaflac` executable
+ * @param options additional options
+ */
 export async function metaflac(
   args: string[],
-  { inputFileName, inputFile, outputFileName }: Options
+  options: Options
 ): Promise<Output> {
+  const { inputFileName, inputFile, outputFileName } = options
   let stdout = ''
   let stderr = ''
   const { FS, callMain } = await loadModule({
@@ -40,7 +46,7 @@ export async function metaflac(
       exitCode,
       stdout,
       stderr,
-      file: undefined,
+      file: null,
     }
   }
 
