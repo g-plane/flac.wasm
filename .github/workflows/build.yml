@@ -16,6 +16,9 @@ jobs:
         sudo apt-get install -y libtool-bin libogg-dev doxygen libxml2-utils w3c-sgml-lib
     - name: Setup emscripten
       uses: mymindstorm/setup-emsdk@v11
+      with:
+        update: true
+    - run: emcc -v
     - name: Setup pnpm
       uses: pnpm/action-setup@v2.0.1
       with:
