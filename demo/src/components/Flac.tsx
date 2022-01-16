@@ -1,6 +1,5 @@
 import { flac } from 'flac.wasm'
 import { useState } from 'preact/hooks'
-import Form from './Form'
 import CommandOutput from './CommandOutput'
 
 export default function Flac() {
@@ -12,6 +11,26 @@ export default function Flac() {
   const [outputFile, setOutputFile] = useState<string | undefined>(undefined)
   const [stdout, setStdout] = useState('')
   const [stderr, setStderr] = useState('')
+
+  const handleInputFileNameInput: JSX.GenericEventHandler<HTMLInputElement> = (event) => {
+    setInputFileName((event.target as HTMLInputElement).value)
+  }
+
+  const handleFileInput: JSX.GenericEventHandler<HTMLInputElement> = (event) => {
+    const file = (event.target as HTMLInputElement).files?.[0]
+    if (file && inputFileName === '') {
+      setInputFileName(file.name)
+    }
+    setInputFile(file)
+  }
+
+  const handleOutputFileNameInput: JSX.GenericEventHandler<HTMLInputElement> = (event) => {
+    setOutputFileName((event.target as HTMLInputElement).value)
+  }
+
+  const handleArgsInput: JSX.GenericEventHandler<HTMLInputElement> = (event) => {
+    setArgs((event.target as HTMLInputElement).value)
+  }
 
   const handleRun = async () => {
     setIsRunning(true)
@@ -38,17 +57,56 @@ export default function Flac() {
 
   return (
     <div class="container flex flex-col items-center">
-      <Form
-        inputFileName={inputFileName}
-        onInputFileNameChange={setInputFileName}
-        inputFile={inputFile}
-        onInputFileChange={setInputFile}
-        outputFileName={outputFileName}
-        onOutputFileNameChange={setOutputFileName}
-        args={args}
-        onArgsChange={setArgs}
-        isRunning={isRunning}
-      />
+      <div class="field flex flex-col w-2/5">
+        <label class="label">Input File Name</label>
+        <div class="control w-full">
+          <input
+            class="input"
+            type="text"
+            disabled={isRunning}
+            value={inputFileName}
+            onInput={handleInputFileNameInput}
+          />
+        </div>
+      </div>
+      <div class="field flex flex-col w-2/5">
+        <label class="label">Input File</label>
+        <label class="file-label flex items-center">
+          <input class="file-input" type="file" onInput={handleFileInput} />
+          <span class="file-cta">
+            <span class="file-label">Choose a file…</span>
+          </span>
+          {inputFile && (
+            <span class="ml-2">
+              You've already selected: <i>{inputFile.name}</i>
+            </span>
+          )}
+        </label>
+      </div>
+      <div class="field flex flex-col w-2/5">
+        <label class="label">Output File Name</label>
+        <div class="control w-full">
+          <input
+            class="input"
+            type="text"
+            disabled={isRunning}
+            value={outputFileName}
+            onInput={handleOutputFileNameInput}
+          />
+        </div>
+      </div>
+      <div class="field flex flex-col w-2/5">
+        <label class="label">CLI Arguments</label>
+        <div class="control w-full">
+          <input
+            class="input"
+            type="text"
+            disabled={isRunning}
+            value={args}
+            onInput={handleArgsInput}
+          />
+        </div>
+      </div>
 
       {outputFile && <audio class="mt-8" controls volume={0.1} src={outputFile} />}
 
