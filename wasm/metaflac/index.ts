@@ -41,6 +41,6 @@ export async function metaflac(args: string[], options: Options): Promise<Output
     exitCode,
     stdout,
     stderr,
-    file: fileName ? FS.readFile(file) : null,
+    file: fileName ? FS.readFile(fileName) : null,
   }
 }
