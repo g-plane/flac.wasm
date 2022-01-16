@@ -2,9 +2,8 @@
 import loadModule from './metaflac.js'
 
 export interface Options {
-  inputFileName?: string
-  inputFile?: Uint8Array
-  outputFileName?: string
+  fileName?: string
+  file?: Uint8Array
 }
 
 export interface Output {
@@ -19,11 +18,8 @@ export interface Output {
  * @param args CLI arguments passed to the `metaflac` executable
  * @param options additional options
  */
-export async function metaflac(
-  args: string[],
-  options: Options
-): Promise<Output> {
-  const { inputFileName, inputFile, outputFileName } = options
+export async function metaflac(args: string[], options: Options): Promise<Output> {
+  const { file, fileName } = options
   let stdout = ''
   let stderr = ''
   const { FS, callMain } = await loadModule({
@@ -35,26 +31,16 @@ export async function metaflac(
     },
   })
 
-  if (inputFile && inputFileName) {
-    FS.writeFile(inputFileName, inputFile)
+  if (file && fileName) {
+    FS.writeFile(fileName, file)
   }
 
   const exitCode = callMain(args)
 
-  if (!outputFileName) {
-    return {
-      exitCode,
-      stdout,
-      stderr,
-      file: null,
-    }
-  }
-
-  const { exists } = FS.analyzePath(outputFileName)
   return {
     exitCode,
     stdout,
     stderr,
-    file: exists ? FS.readFile(outputFileName) : undefined,
+    file: fileName ? FS.readFile(file) : null,
   }
 }
