@@ -114,7 +114,14 @@ export default function Flac() {
         </button>
       </div>
 
-      {outputFile && <audio class="mt-8" controls volume={0.1} src={outputFile} />}
+      {outputFile && (
+        <div class="mt-8">
+          <audio controls volume={0.1} src={outputFile} />
+          <a href={outputFile} download={outputFileName} class="ml-3 button is-info is-light">
+            Download audio file
+          </a>
+        </div>
+      )}
 
       <div class="mt-4 grid grid-cols-2 gap-x-3 w-3/5">
         <div>
