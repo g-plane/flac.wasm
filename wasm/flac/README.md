@@ -21,14 +21,11 @@ const file = new Uint8Array(await blob.arrayBuffer())
 // for Deno
 const file = await Deno.readFile('source.wav')
 
-const { exitCode, stdout, stderr, file } = flac(
-  ['-o', 'output.flac', 'input.wav'],
-  {
-    inputFileName: 'input.wav',
-    inputFile: file,
-    outputFileName: 'output.flac',
-  }
-)
+const { exitCode, stdout, stderr, file } = flac(['-o', 'output.flac', 'input.wav'], {
+  inputFileName: 'input.wav',
+  inputFile: file,
+  outputFileName: 'output.flac',
+})
 if (file) {
   // do something with outputted file
 }
@@ -45,14 +42,11 @@ const file = new Uint8Array(await blob.arrayBuffer())
 // for Deno
 const file = await Deno.readFile('source.flac')
 
-const { exitCode, stdout, stderr, file } = flac(
-  ['-d', '-o', 'output.wav', 'input.flac'],
-  {
-    inputFileName: 'input.flac',
-    inputFile: file,
-    outputFileName: 'output.wav',
-  }
-)
+const { exitCode, stdout, stderr, file } = flac(['-d', '-o', 'output.wav', 'input.flac'], {
+  inputFileName: 'input.flac',
+  inputFile: file,
+  outputFileName: 'output.wav',
+})
 if (file) {
   // do something with outputted file
 }
@@ -60,10 +54,6 @@ if (file) {
 
 ## License
 
-The source code of [`flac`](https://github.com/xiph/flac/tree/master/src/flac) is licensed under GPL v2.0.
-For details, please refer to their [license file](https://github.com/xiph/flac/blob/master/COPYING.GPL).
+GPL v2
 
-This repository contains wrapper for running those executables on browsers and other environments
-and scripts for building WebAssembly. Those parts are licensed under [MIT](./LICENSE).
-
-Due to using `flac` indirectly, you may be required to use GPL license in your projects.
+Copyright (c) 2022-present Pig Fang

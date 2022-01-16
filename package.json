@@ -3,7 +3,7 @@
   "private": true,
   "author": "Pig Fang <g-plane@hotmail.com>",
   "repository": "g-plane/flac.wasm",
-  "license": "MIT AND GPL-2.0",
+  "license": "GPL-2.0",
   "scripts": {
     "build": "tsc -p .",
     "fmt": "prettier --write **/*.ts **/*.md"
