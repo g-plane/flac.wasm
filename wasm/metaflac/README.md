@@ -17,13 +17,13 @@ import { metaflac } from 'metaflac.wasm'
 
 // for browsers
 const blob = document.querySelector('input').files[0]
-const file = new Uint8Array(await blob.arrayBuffer())
+const inputFile = new Uint8Array(await blob.arrayBuffer())
 // for Deno
-const file = await Deno.readFile('file.flac')
+const inputFile = await Deno.readFile('file.flac')
 
 const { exitCode, stdout, stderr, file } = metaflac(['--show-tag=TITLE', 'file.flac'], {
-  inputFileName: 'file.flac',
-  inputFile: file,
+  fileName: 'file.flac',
+  file: inputFile,
 })
 console.log(stdout)
 ```
@@ -35,14 +35,13 @@ import { metaflac } from 'metaflac.wasm'
 
 // for browsers
 const blob = document.querySelector('input').files[0]
-const file = new Uint8Array(await blob.arrayBuffer())
+const inputFile = new Uint8Array(await blob.arrayBuffer())
 // for Deno
-const file = await Deno.readFile('file.flac')
+const inputFile = await Deno.readFile('file.flac')
 
 const { exitCode, stdout, stderr, file } = metaflac(['--set-tag=TITLE=xxx', 'input.flac'], {
-  inputFileName: 'input.flac',
-  inputFile: file,
-  outputFileName: 'output.flac',
+  fileName: 'input.flac',
+  file: inputFile,
 })
 if (file) {
   // do something with outputted file
