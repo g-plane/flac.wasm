@@ -57,6 +57,11 @@ export default function Flac() {
 
   return (
     <div class="container flex flex-col items-center">
+      <div class="mb-5">
+        You can run the official FLAC tool <code>flac</code> on browser here, as running it as a
+        command line tool.
+      </div>
+
       <div class="field flex flex-col w-2/5">
         <label class="label">Input File Name</label>
         <div class="control w-full">
@@ -78,7 +83,7 @@ export default function Flac() {
           </span>
           {inputFile && (
             <span class="ml-2">
-              You've already selected: <i>{inputFile.name}</i>
+              Selected: <i>{inputFile.name}</i>
             </span>
           )}
         </label>
