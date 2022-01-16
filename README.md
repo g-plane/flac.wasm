@@ -4,6 +4,8 @@ Run official FLAC tools `flac` and `metaflac` as WebAssembly, on browsers or Den
 
 > Currently we have no plans on supporting Node.js.
 
+[Try it online!](https://flac.vercel.app)
+
 ## Usage
 
 For usage of `flac`, please refer to [its documentation](./wasm/flac/README.md).
