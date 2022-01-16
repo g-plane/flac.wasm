@@ -5,3 +5,4 @@ dist/
 *.d.ts
 *.wasm
 !demo/**/*.d.ts
+.vercel

@@ -6,24 +6,39 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        submodules: true
-    - name: Install Linux packages
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libtool-bin libogg-dev doxygen
-    - name: Setup emscripten
-      uses: mymindstorm/setup-emsdk@v11
-      with:
-        version: 3.0.0
-        update: true
-    - run: emcc -v
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2.0.1
-      with:
-        version: 6.26.1
-        run_install: true
-    - name: Build
-      run: ./build.sh
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Install Linux packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libtool-bin libogg-dev doxygen
+      - name: Setup emscripten
+        uses: mymindstorm/setup-emsdk@v11
+        with:
+          version: 3.0.0
+          update: true
+      - run: emcc -v
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.26.1
+          run_install: true
+      - name: Build
+        run: ./build.sh
+      - name: Build demo
+        if: github.event_name == 'push'
+        run: |
+          pnpm --filter=demo build
+      - name: Deploy demo
+        if: github.event_name == 'push'
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          working-directory: ./demo/dist
+          github-comment: false
