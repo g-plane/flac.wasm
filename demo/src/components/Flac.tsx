@@ -108,15 +108,15 @@ export default function Flac() {
         </div>
       </div>
 
-      {outputFile && <audio class="mt-8" controls volume={0.1} src={outputFile} />}
-
       <div class="flex justify-center">
         <button class="button is-primary mt-8" disabled={isRunning} onClick={handleRun}>
           {isRunning ? 'Running...' : 'Run'}
         </button>
       </div>
 
-      <div class="mt-8 grid grid-cols-2 gap-x-3 w-3/5">
+      {outputFile && <audio class="mt-8" controls volume={0.1} src={outputFile} />}
+
+      <div class="mt-4 grid grid-cols-2 gap-x-3 w-3/5">
         <div>
           <h3 class="text-center mb-2 text-lg">stdout</h3>
           <CommandOutput text={stdout} />
