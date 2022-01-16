@@ -1,5 +1,7 @@
 node_modules/
+dist/
 *.js
 *.mjs
 *.d.ts
 *.wasm
+!demo/**/*.d.ts
