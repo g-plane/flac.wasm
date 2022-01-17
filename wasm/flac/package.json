@@ -12,13 +12,27 @@
     ".": {
       "import": "./index.js",
       "types": "./index.d.ts"
+    },
+    "./worker": {
+      "import": "./worker.js",
+      "types": "./worker.d.ts"
     }
   },
   "files": [
     "flac.js",
     "flac.wasm",
     "index.d.ts",
-    "index.js"
+    "index.js",
+    "worker.js",
+    "worker.d.ts",
+    "types.d.ts"
   ],
-  "dependencies": {}
+  "scripts": {
+    "build": "rollup -c rollup.config.ts --configPlugin swc3"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.2.130",
+    "rollup": "^2.64.0",
+    "rollup-plugin-swc3": "^0.1.4"
+  }
 }

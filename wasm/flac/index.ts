@@ -1,19 +1,6 @@
 // @ts-expect-error
 import loadModule from './flac.js'
-
-export interface Options {
-  inputFileName?: string
-  inputFile?: Uint8Array
-  outputFileName?: string
-}
-
-export interface Output {
-  exitCode: number
-  stdout: string
-  stderr: string
-  /** Outputted file. It will be `null` if file isn't existed. */
-  file: Uint8Array | null
-}
+import type { Options, Output } from './types'
 
 /**
  * @param args CLI arguments passed to the `flac` executable
@@ -55,3 +42,14 @@ export async function flac(args: string[], options: Options): Promise<Output> {
     file: exists ? FS.readFile(outputFileName) : undefined,
   }
 }
+
+if (typeof importScripts !== 'undefined') {
+  self.addEventListener(
+    'message',
+    async ({ data: { args, options } }: { data: { args: string[]; options: Options } }) => {
+      self.postMessage(await flac(args, options))
+    }
+  )
+}
+
+export type { Options, Output } from './types'

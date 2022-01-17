@@ -6,3 +6,4 @@ dist/
 *.wasm
 !demo/**/*.d.ts
 .vercel
+.swc

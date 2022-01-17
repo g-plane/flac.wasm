@@ -1,7 +1,9 @@
 {
   "extends": "@gplane/tsconfig",
   "compilerOptions": {
+    "module": "esnext",
     "sourceMap": false
   },
-  "include": ["wasm"]
+  "include": ["wasm"],
+  "exclude": ["wasm/**/*.d.ts", "**/rollup.config.ts"]
 }

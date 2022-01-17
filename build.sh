@@ -16,3 +16,4 @@ cp src/metaflac/.libs/metaflac.wasm ../wasm/metaflac/metaflac.wasm
 cd ..
 
 pnpm build
+pnpm build --filter=flac.wasm

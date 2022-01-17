@@ -1,4 +1,4 @@
-import { flac } from 'flac.wasm'
+import { flac } from 'flac.wasm/worker'
 import { useState } from 'preact/hooks'
 import CommandOutput from './CommandOutput'
 
