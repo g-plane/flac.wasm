@@ -8,7 +8,11 @@ export function useXterm() {
   const instance = useRef<Terminal | null>(null)
 
   useEffect(() => {
-    const terminal = new Terminal({ rows: 18, scrollback: 0, lineHeight: 1.2 })
+    const terminal = new Terminal({
+      rows: 18,
+      disableStdin: true,
+      fontFamily: '"Roboto Mono"',
+    })
     const fitAddon = new FitAddon()
     terminal.loadAddon(fitAddon)
     if (container.current) {
