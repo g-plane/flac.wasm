@@ -25,6 +25,7 @@
     "index.js",
     "worker.js",
     "worker.d.ts",
+    "workerized.js",
     "types.d.ts"
   ],
   "scripts": {
