@@ -17,3 +17,4 @@ cd ..
 
 pnpm build
 pnpm build --filter=flac.wasm
+pnpm build --filter=metaflac.wasm
