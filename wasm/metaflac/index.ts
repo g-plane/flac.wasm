@@ -30,6 +30,12 @@ export async function metaflac(args: string[], options: Options): Promise<Output
     printErr(text: string) {
       stderr += text + '\n'
     },
+    locateFile(path: string, prefix: string) {
+      if (options.wasmURL) {
+        return options.wasmURL
+      }
+      return prefix + path
+    },
   })
 
   if (file && fileName) {
