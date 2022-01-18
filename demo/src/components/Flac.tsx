@@ -120,7 +120,7 @@ export default function Flac() {
       </div>
 
       {outputFile && (
-        <div class="mt-8">
+        <div class="mt-8 flex items-center">
           <audio controls volume={0.1} src={outputFile} />
           <a href={outputFile} download={outputFileName} class="ml-3 button is-info is-light">
             Download audio file
