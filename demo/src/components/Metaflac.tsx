@@ -1,4 +1,4 @@
-import { metaflac } from 'metaflac.wasm'
+import { metaflac } from 'metaflac.wasm/worker'
 import type { JSX } from 'preact'
 import { useState } from 'preact/hooks'
 import CommandOutput from './CommandOutput'
