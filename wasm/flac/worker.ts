@@ -21,7 +21,13 @@ export async function flac(args: string[], options: Options): Promise<Output> {
       reject(data)
       worker.terminate()
     })
-    worker.postMessage({ args, options })
+    worker.postMessage({
+      args,
+      options: {
+        ...options,
+        wasmURL: options.wasmURL || new URL('./flac.wasm', import.meta.url).href,
+      },
+    })
   })
 }
 

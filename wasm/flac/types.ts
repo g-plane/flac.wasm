@@ -2,6 +2,8 @@ export interface Options {
   inputFileName?: string
   inputFile?: Uint8Array
   outputFileName?: string
+  /** Custom WebAssembly file URL, for example, from CDN. */
+  wasmURL?: string
 }
 
 export interface Output {
