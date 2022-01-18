@@ -1,0 +1,8 @@
+{
+  "extends": "@gplane/tsconfig",
+  "compilerOptions": {
+    "module": "esnext",
+    "sourceMap": false
+  },
+  "exclude": ["rollup.config.ts"]
+}

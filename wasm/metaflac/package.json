@@ -29,9 +29,12 @@
     "types.d.ts"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.ts"
+    "build": "tsc -p . && rollup -c rollup.config.ts",
+    "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
-    "rollup": "^2.64.0"
+    "@gplane/tsconfig": "^5.0.0",
+    "rollup": "^2.64.0",
+    "typescript": "^4.5.4"
   }
 }

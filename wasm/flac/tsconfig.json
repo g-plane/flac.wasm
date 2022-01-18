@@ -4,6 +4,5 @@
     "module": "esnext",
     "sourceMap": false
   },
-  "include": ["wasm"],
-  "exclude": ["wasm/**/*.d.ts", "**/rollup.config.ts"]
+  "exclude": ["rollup.config.ts"]
 }
