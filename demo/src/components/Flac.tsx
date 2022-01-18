@@ -1,6 +1,7 @@
 import { flac } from 'flac.wasm/worker'
 import { useState } from 'preact/hooks'
-import CommandOutput from './CommandOutput'
+import { useXterm } from '../hooks/useXterm'
+import { writeCharToTerminal } from '../utils'
 
 export default function Flac() {
   const [inputFileName, setInputFileName] = useState('input.flac')
@@ -9,8 +10,7 @@ export default function Flac() {
   const [args, setArgs] = useState('-d -o output.wav input.flac')
   const [isRunning, setIsRunning] = useState(false)
   const [outputFile, setOutputFile] = useState<string | undefined>(undefined)
-  const [stdout, setStdout] = useState('')
-  const [stderr, setStderr] = useState('')
+  const { terminalContainer, terminalInstance } = useXterm()
 
   const handleInputFileNameInput: JSX.GenericEventHandler<HTMLInputElement> = (event) => {
     setInputFileName((event.target as HTMLInputElement).value)
@@ -34,14 +34,23 @@ export default function Flac() {
 
   const handleRun = async () => {
     setIsRunning(true)
+    terminalInstance.current?.clear()
     const inputFileBytes = inputFile ? new Uint8Array(await inputFile.arrayBuffer()) : undefined
-    const { file, stdout, stderr } = await flac(args.trim().split(' '), {
+    const { file } = await flac(args.trim().split(' '), {
       inputFileName,
       inputFile: inputFileBytes,
       outputFileName,
+      onStdout: (char) => {
+        if (terminalInstance.current) {
+          writeCharToTerminal(terminalInstance.current, char)
+        }
+      },
+      onStderr: (char) => {
+        if (terminalInstance.current) {
+          writeCharToTerminal(terminalInstance.current, char)
+        }
+      },
     })
-    setStdout(stdout)
-    setStderr(stderr)
 
     if (outputFile) {
       URL.revokeObjectURL(outputFile)
@@ -128,15 +137,8 @@ export default function Flac() {
         </div>
       )}
 
-      <div class="mt-4 grid grid-cols-2 gap-x-3 w-3/5">
-        <div>
-          <h3 class="text-center mb-2 text-lg">stdout</h3>
-          <CommandOutput text={stdout} />
-        </div>
-        <div>
-          <h3 class="text-center mb-2 text-lg">stderr</h3>
-          <CommandOutput text={stderr} />
-        </div>
+      <div class="mt-4 w-190 p-2 rounded bg-black">
+        <div ref={terminalContainer}></div>
       </div>
     </div>
   )

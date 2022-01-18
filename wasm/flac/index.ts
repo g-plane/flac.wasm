@@ -1,6 +1,10 @@
 // @ts-expect-error
 import loadModule from './flac.js'
-import type { Options, Output } from './types'
+import type { Options, Output, Communication } from './types'
+
+type FS = typeof FS
+
+const isInWorker = typeof importScripts !== 'undefined'
 
 /**
  * @param args CLI arguments passed to the `flac` executable
@@ -10,7 +14,16 @@ export async function flac(args: string[], options: Options): Promise<Output> {
   const { inputFileName, inputFile, outputFileName } = options
   let stdout = ''
   let stderr = ''
-  const { FS, callMain } = await loadModule({
+  const { FS, callMain }: { FS: FS; callMain(args: string[]): number } = await loadModule({
+    preRun: ({ FS }: { FS: FS }) => {
+      if (isInWorker) {
+        FS.init(
+          null,
+          (c) => self.postMessage({ kind: 'stdout', payload: c }),
+          (c) => self.postMessage({ kind: 'stderr', payload: c })
+        )
+      }
+    },
     print(text: string) {
       stdout += text + '\n'
     },
@@ -40,22 +53,26 @@ export async function flac(args: string[], options: Options): Promise<Output> {
     }
   }
 
-  const { exists } = FS.analyzePath(outputFileName)
+  const { exists } = (FS as FS & { analyzePath(path: string): { exists: boolean } }).analyzePath(
+    outputFileName
+  )
   return {
     exitCode,
     stdout,
     stderr,
-    file: exists ? FS.readFile(outputFileName) : undefined,
+    file: exists ? FS.readFile(outputFileName) : null,
   }
 }
 
-if (typeof importScripts !== 'undefined') {
-  self.addEventListener(
-    'message',
-    async ({ data: { args, options } }: { data: { args: string[]; options: Options } }) => {
-      self.postMessage(await flac(args, options))
+if (isInWorker) {
+  self.addEventListener('message', async ({ data }: { data: Communication }) => {
+    if (data.kind === 'execute') {
+      self.postMessage({
+        kind: 'complete',
+        payload: await flac(data.payload.args, data.payload.options),
+      })
     }
-  )
+  })
 }
 
 export type { Options, Output } from './types'
