@@ -1,7 +1,5 @@
-<center>
-<img src="./demo/assets/logo.svg" width="160">
-<h1>flac.wasm</h1>
-</center>
+<div align="center"><img src="./demo/assets/logo.svg" width="160"></div>
+<h1 align="center">flac.wasm</h1>
 
 Run official FLAC tools `flac` and `metaflac` as WebAssembly, on browsers or Deno.
 
