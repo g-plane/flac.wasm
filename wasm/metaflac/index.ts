@@ -44,11 +44,23 @@ export async function metaflac(args: string[], options: Options): Promise<Output
 
   const exitCode = callMain(args)
 
+  if (!fileName) {
+    return {
+      exitCode,
+      stdout,
+      stderr,
+      file: null,
+    }
+  }
+
+  const { exists } = (FS as FS & { analyzePath(path: string): { exists: boolean } }).analyzePath(
+    fileName
+  )
   return {
     exitCode,
     stdout,
     stderr,
-    file: fileName ? FS.readFile(fileName) : null,
+    file: exists ? FS.readFile(fileName) : null,
   }
 }
 
