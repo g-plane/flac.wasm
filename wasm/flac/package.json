@@ -28,11 +28,9 @@
     "types.d.ts"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.ts --configPlugin swc3"
+    "build": "rollup -c rollup.config.ts"
   },
   "devDependencies": {
-    "@swc/core": "^1.2.130",
-    "rollup": "^2.64.0",
-    "rollup-plugin-swc3": "^0.1.4"
+    "rollup": "^2.64.0"
   }
 }
