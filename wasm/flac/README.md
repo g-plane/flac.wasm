@@ -52,6 +52,32 @@ if (file) {
 }
 ```
 
+## Advanced
+
+### Using in Web Worker
+
+By default, running `flac` is blocking the main thread which leads to be out of page response.
+To avoid "freezing" the UI, you can run it in a Web Worker.
+
+Just need to change the import:
+
+```diff
+- import { flac } from 'flac.wasm'
++ import { flac } from 'flac.wasm/worker'
+```
+
+### Using another WebAssembly file
+
+Sometimes you may want to use another WebAssembly file, for example, from CDN.
+You can specify the `wasmURL` option:
+
+```js
+await flac(/* args */ [], {
+  wasmURL: 'https://cdn/flac.wasm',
+  // other options
+})
+```
+
 ## License
 
 GPL v2
