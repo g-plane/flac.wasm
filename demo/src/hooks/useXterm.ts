@@ -11,7 +11,6 @@ export function useXterm() {
     const terminal = new Terminal({
       rows: 18,
       disableStdin: true,
-      fontFamily: '"Roboto Mono"',
     })
     const fitAddon = new FitAddon()
     terminal.loadAddon(fitAddon)
