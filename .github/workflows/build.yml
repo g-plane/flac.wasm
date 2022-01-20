@@ -17,7 +17,6 @@ jobs:
       - name: Setup emscripten
         uses: mymindstorm/setup-emsdk@v11
         with:
-          version: 3.0.0
           update: true
       - run: emcc -v
       - name: Setup pnpm
