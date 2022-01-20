@@ -2,7 +2,7 @@ set -xe
 
 cd flac
 ./autogen.sh
-emconfigure ./configure CFLAGS=-Oz
+emconfigure ./configure --disable-examples --disable-option-checking --disable-cpplibs CFLAGS=-Oz
 sed '/^CFLAGS/s/$/ -s INVOKE_RUN=0 -s EXIT_RUNTIME=0 -s EXPORTED_RUNTIME_METHODS="[FS, callMain]" -s MODULARIZE=1 -s EXPORT_ES6=1 -s ENVIRONMENT=worker&/' \
   -i src/flac/Makefile
 sed '/^CFLAGS/s/$/ -s INVOKE_RUN=0 -s EXIT_RUNTIME=0 -s EXPORTED_RUNTIME_METHODS="[FS, callMain]" -s MODULARIZE=1 -s EXPORT_ES6=1 -s ENVIRONMENT=worker&/' \
