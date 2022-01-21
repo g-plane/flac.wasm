@@ -20,6 +20,11 @@ export interface Output {
 
 /** @internal */
 export let wasmBinary: ArrayBuffer | undefined
+/**
+ * Fetch WebAssembly file eagerly, then cache it.
+ *
+ * @param source URL to the WebAssembly file, or an `ArrayBuffer` of the WebAssembly file
+ */
 export async function preloadWASM(
   source: string | ArrayBuffer = new URL('./metaflac.wasm', import.meta.url).href
 ) {
