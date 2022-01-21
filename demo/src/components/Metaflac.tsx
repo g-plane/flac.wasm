@@ -3,7 +3,7 @@ import { useEffect, useState } from 'preact/hooks'
 import { useXterm } from '../hooks/useXterm'
 import { writeCharToTerminal } from '../utils'
 
-export default function Flac() {
+export default function Metaflac() {
   const [fileName, setFileName] = useState('input.flac')
   const [inputFile, setInputFile] = useState<File | undefined>(undefined)
   const [args, setArgs] = useState('--show-tag=TITLE --show-tag=ARTIST --show-tag=ALBUM input.flac')
