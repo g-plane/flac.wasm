@@ -1,6 +1,7 @@
 // @ts-expect-error
 import loadModule from './flac.js'
-import type { Options, Output, Communication } from './types'
+import { wasmBinary } from './shared'
+import type { Options, Output, Communication } from './shared'
 
 type FS = typeof FS
 
@@ -30,9 +31,7 @@ export async function flac(args: string[], options: Options): Promise<Output> {
     printErr(text: string) {
       stderr += text + '\n'
     },
-    locateFile(path: string, prefix: string) {
-      return options.wasmURL || `${prefix}${path}`
-    },
+    wasmBinary: options.wasmBinary ?? wasmBinary,
   })
 
   if (inputFile && inputFileName) {
@@ -72,4 +71,5 @@ if (isInWorker) {
   })
 }
 
-export type { Options, Output } from './types'
+export { preloadWASM } from './shared'
+export type { Options, Output } from './shared'

@@ -26,7 +26,8 @@
     "worker.js",
     "worker.d.ts",
     "workerized.js",
-    "types.d.ts"
+    "shared.js",
+    "shared.d.ts"
   ],
   "scripts": {
     "build": "tsc -p . && rollup -c rollup.config.ts",

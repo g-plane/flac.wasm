@@ -1,8 +1,8 @@
 export interface Options {
   fileName?: string
   file?: Uint8Array
-  /** Custom WebAssembly file URL, for example, from CDN. */
-  wasmURL?: string
+  /** @internal */
+  wasmBinary?: ArrayBuffer
 }
 
 export interface WorkerOptions extends Options {
@@ -16,6 +16,25 @@ export interface Output {
   stderr: string
   /** Outputted file. It will be `null` if file isn't existed. */
   file: Uint8Array | null
+}
+
+/** @internal */
+export let wasmBinary: ArrayBuffer | undefined
+export async function preloadWASM(
+  source: string | ArrayBuffer = new URL('./metaflac.wasm', import.meta.url).href
+) {
+  if (wasmBinary) {
+    return
+  }
+
+  if (typeof source === 'string') {
+    const response = await fetch(source)
+    if (response.ok) {
+      wasmBinary = await response.arrayBuffer()
+    }
+  } else {
+    wasmBinary = source
+  }
 }
 
 /** @internal */

@@ -1,4 +1,5 @@
-import type { WorkerOptions, Output, Communication } from './types'
+import { wasmBinary } from './shared'
+import type { WorkerOptions, Output, Communication } from './shared'
 
 /**
  * The `metaflac` executable that will run at Web Worker.
@@ -38,11 +39,12 @@ export async function metaflac(args: string[], options: WorkerOptions): Promise<
         options: {
           fileName: options.fileName,
           file: options.file,
-          wasmURL: options.wasmURL || new URL('./metaflac.wasm', import.meta.url).href,
+          wasmBinary,
         },
       },
     })
   })
 }
 
-export type { Options, Output } from './types'
+export { preloadWASM } from './shared'
+export type { Options, Output } from './shared'

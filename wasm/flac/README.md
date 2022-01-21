@@ -66,17 +66,20 @@ Just need to change the import:
 + import { flac } from 'flac.wasm/worker'
 ```
 
-### Using another WebAssembly file
+### Preloading WebAssembly
 
-Sometimes you may want to use another WebAssembly file, for example, from CDN.
-You can specify the `wasmURL` option:
+It will be better that preloading the WebAssembly file,
+instead of fetching it when invoking.
 
 ```js
-await flac(/* args */ [], {
-  wasmURL: 'https://cdn/flac.wasm',
-  // other options
-})
+import { preloadWASM } from 'flac.wasm'
+
+preloadWASM()
 ```
+
+`preloadWASM` also accept a `string` or an `ArrayBuffer` as argument.
+For `string`, it will be treated as a URL to be fetched, so you can specify custom WebAssembly location;
+for `ArrayBuffer`, it must be the WebAssembly file.
 
 ## License
 

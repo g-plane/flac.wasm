@@ -1,5 +1,5 @@
-import { metaflac } from 'metaflac.wasm/worker'
-import { useState } from 'preact/hooks'
+import { metaflac, preloadWASM } from 'metaflac.wasm/worker'
+import { useEffect, useState } from 'preact/hooks'
 import { useXterm } from '../hooks/useXterm'
 import { writeCharToTerminal } from '../utils'
 
@@ -10,6 +10,10 @@ export default function Flac() {
   const [isRunning, setIsRunning] = useState(false)
   const [outputFile, setOutputFile] = useState<string | undefined>(undefined)
   const { terminalContainer, terminalInstance } = useXterm()
+
+  useEffect(() => {
+    preloadWASM()
+  }, [])
 
   const handleFileNameInput: JSX.GenericEventHandler<HTMLInputElement> = (event) => {
     setFileName((event.target as HTMLInputElement).value)

@@ -1,4 +1,5 @@
-import type { WorkerOptions, Output, Communication } from './types'
+import { wasmBinary } from './shared'
+import type { WorkerOptions, Output, Communication } from './shared'
 
 /**
  * The `flac` executable that will run at Web Worker.
@@ -39,11 +40,12 @@ export async function flac(args: string[], options: WorkerOptions): Promise<Outp
           inputFileName: options.inputFileName,
           inputFile: options.inputFile,
           outputFileName: options.outputFileName,
-          wasmURL: options.wasmURL || new URL('./flac.wasm', import.meta.url).href,
+          wasmBinary,
         },
       },
     })
   })
 }
 
-export type { WorkerOptions, Output } from './types'
+export { preloadWASM } from './shared'
+export type { WorkerOptions, Output } from './shared'
