@@ -1,5 +1,6 @@
-import { wasmBinary } from './shared'
 import type { WorkerOptions, Output, Communication } from './shared'
+
+let worker: Worker | undefined
 
 /**
  * The `flac` executable that will run at Web Worker.
@@ -9,12 +10,11 @@ import type { WorkerOptions, Output, Communication } from './shared'
  */
 export async function flac(args: string[], options: WorkerOptions): Promise<Output> {
   return new Promise((resolve, reject) => {
-    const worker = new Worker(new URL('./workerized.js', import.meta.url))
-    worker.addEventListener('message', ({ data }: { data: Communication }) => {
+    function handleMessageEvent({ data }: { data: Communication }) {
       switch (data.kind) {
         case 'complete':
           resolve(data.payload)
-          worker.terminate()
+          worker.removeEventListener('message', handleMessageEvent)
           break
         case 'stdout':
           options.onStdout?.(data.payload)
@@ -23,15 +23,24 @@ export async function flac(args: string[], options: WorkerOptions): Promise<Outp
           options.onStderr?.(data.payload)
           break
       }
-    })
-    worker.addEventListener('error', ({ error }) => {
-      reject(error)
-      worker.terminate()
-    })
-    worker.addEventListener('messageerror', ({ data }) => {
-      reject(data)
-      worker.terminate()
-    })
+    }
+
+    const worker = initWebWorker()
+    worker.addEventListener('message', handleMessageEvent)
+    worker.addEventListener(
+      'error',
+      ({ error }) => {
+        reject(error)
+      },
+      { once: true }
+    )
+    worker.addEventListener(
+      'messageerror',
+      ({ data }) => {
+        reject(data)
+      },
+      { once: true }
+    )
     worker.postMessage({
       kind: 'execute',
       payload: {
@@ -40,12 +49,28 @@ export async function flac(args: string[], options: WorkerOptions): Promise<Outp
           inputFileName: options.inputFileName,
           inputFile: options.inputFile,
           outputFileName: options.outputFileName,
-          wasmBinary,
         },
       },
     })
   })
 }
 
-export { preloadWASM } from './shared'
+function initWebWorker(): Worker {
+  if (!worker) {
+    worker = new Worker(new URL('./workerized.js', import.meta.url))
+  }
+  return worker
+}
+
+/**
+ * Create Web Worker and fetch WebAssembly file eagerly.
+ */
+export function preloadWorkerAndWASM(wasmSource?: string | ArrayBuffer) {
+  const worker = initWebWorker()
+  worker.postMessage({
+    kind: 'preload-wasm',
+    payload: { wasm: wasmSource },
+  })
+}
+
 export type { WorkerOptions, Output } from './shared'

@@ -66,7 +66,7 @@ Just need to change the import:
 + import { flac } from 'flac.wasm/worker'
 ```
 
-### Preloading WebAssembly
+### Preloading
 
 It will be better that preloading the WebAssembly file,
 instead of fetching it when invoking.
@@ -80,6 +80,14 @@ preloadWASM()
 `preloadWASM` also accept a `string` or an `ArrayBuffer` as argument.
 For `string`, it will be treated as a URL to be fetched, so you can specify custom WebAssembly location;
 for `ArrayBuffer`, it must be the WebAssembly file.
+
+If you're using Web Worker version, you can also preload the Web Worker script:
+
+```js
+import { preloadWorkerAndWASM } from 'flac.wasm/worker'
+
+preloadWorkerAndWASM()
+```
 
 ## License
 

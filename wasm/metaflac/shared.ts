@@ -1,8 +1,6 @@
 export interface Options {
   fileName?: string
   file?: Uint8Array
-  /** @internal */
-  wasmBinary?: ArrayBuffer
 }
 
 export interface WorkerOptions extends Options {
@@ -48,3 +46,4 @@ export type Communication =
   | { kind: 'complete'; payload: Output }
   | { kind: 'stdout'; payload: number }
   | { kind: 'stderr'; payload: number }
+  | { kind: 'preload-wasm'; payload: { wasm: string | ArrayBuffer | undefined } }

@@ -1,6 +1,6 @@
 // @ts-expect-error
 import loadModule from './metaflac.js'
-import { wasmBinary } from './shared'
+import { preloadWASM, wasmBinary } from './shared'
 import type { Options, Output, Communication } from './shared'
 
 type FS = typeof FS
@@ -31,7 +31,7 @@ export async function metaflac(args: string[], options: Options): Promise<Output
     printErr(text: string) {
       stderr += text + '\n'
     },
-    wasmBinary: options.wasmBinary ?? wasmBinary,
+    wasmBinary,
   })
 
   if (file && fileName) {
@@ -62,11 +62,16 @@ export async function metaflac(args: string[], options: Options): Promise<Output
 
 if (isInWorker) {
   self.addEventListener('message', async ({ data }: { data: Communication }) => {
-    if (data.kind === 'execute') {
-      self.postMessage({
-        kind: 'complete',
-        payload: await metaflac(data.payload.args, data.payload.options),
-      })
+    switch (data.kind) {
+      case 'execute':
+        self.postMessage({
+          kind: 'complete',
+          payload: await metaflac(data.payload.args, data.payload.options),
+        })
+        break
+      case 'preload-wasm':
+        preloadWASM(data.payload.wasm)
+        break
     }
   })
 }

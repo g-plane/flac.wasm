@@ -1,4 +1,4 @@
-import { flac, preloadWASM } from 'flac.wasm/worker'
+import { flac, preloadWorkerAndWASM } from 'flac.wasm/worker'
 import { useEffect, useState } from 'preact/hooks'
 import { useXterm } from '../hooks/useXterm'
 import { writeCharToTerminal } from '../utils'
@@ -13,7 +13,7 @@ export default function Flac() {
   const { terminalContainer, terminalInstance } = useXterm()
 
   useEffect(() => {
-    preloadWASM()
+    preloadWorkerAndWASM()
   }, [])
 
   const handleInputFileNameInput: JSX.GenericEventHandler<HTMLInputElement> = (event) => {
