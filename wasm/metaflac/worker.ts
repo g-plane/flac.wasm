@@ -1,3 +1,4 @@
+import { preloadWASM, wasmBinary } from './shared'
 import type { WorkerOptions, Output, Communication } from './shared'
 
 let worker: Worker | undefined
@@ -66,11 +67,12 @@ function initWebWorker(): Worker {
 /**
  * Create Web Worker and fetch WebAssembly file eagerly.
  */
-export function preloadWorkerAndWASM(wasmSource?: string | ArrayBuffer) {
+export async function preloadWorkerAndWASM(wasmSource?: string | ArrayBuffer) {
   const worker = initWebWorker()
+  await preloadWASM(wasmSource)
   worker.postMessage({
     kind: 'preload-wasm',
-    payload: { wasm: wasmSource },
+    payload: { wasm: wasmBinary },
   })
 }
 
