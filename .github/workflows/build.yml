@@ -20,9 +20,9 @@ jobs:
           update: true
       - run: emcc -v
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2.0.1
+        uses: pnpm/action-setup@v2.2.2
         with:
-          version: 6.26.1
+          version: latest
           run_install: true
       - name: Build
         run: ./build.sh
