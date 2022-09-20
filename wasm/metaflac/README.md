@@ -52,7 +52,7 @@ if (file) {
 
 ### Using in Web Worker
 
-By default, running `metaflac` is blocking the main thread which leads to be out of page response.
+By default, running `metaflac` will block the main thread which leads to be out of page response.
 To avoid "freezing" the UI, you can run it in a Web Worker.
 
 Just need to change the import:
