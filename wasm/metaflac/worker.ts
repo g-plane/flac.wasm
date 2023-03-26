@@ -59,7 +59,7 @@ export async function metaflac(args: string[], options: WorkerOptions): Promise<
 
 function initWebWorker(): Worker {
   if (!worker) {
-    worker = new Worker(new URL('./workerized.js', import.meta.url))
+    worker = new Worker(new URL('./workerized.js', import.meta.url), /* @vite-ignore */ {})
   }
   return worker
 }

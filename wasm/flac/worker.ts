@@ -58,7 +58,7 @@ export async function flac(args: string[], options: WorkerOptions): Promise<Outp
 
 function initWebWorker(): Worker {
   if (!worker) {
-    worker = new Worker(new URL('./workerized.js', import.meta.url))
+    worker = new Worker(new URL('./workerized.js', import.meta.url), /* @vite-ignore */ {})
   }
   return worker
 }
