@@ -1,5 +1,5 @@
-import { preloadWASM, wasmBinary } from './shared'
-import type { WorkerOptions, Output, Communication } from './shared'
+import { preloadWASM, wasmBinary } from './shared.js'
+import type { WorkerOptions, Output, Communication } from './shared.js'
 
 let worker: Worker | undefined
 
@@ -76,4 +76,4 @@ export async function preloadWorkerAndWASM(wasmSource?: string | ArrayBuffer) {
   })
 }
 
-export type { Options, Output } from './shared'
+export type { Options, Output } from './shared.js'

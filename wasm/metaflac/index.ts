@@ -1,7 +1,7 @@
 // @ts-expect-error
 import loadModule from './metaflac.js'
-import { preloadWASM, wasmBinary } from './shared'
-import type { Options, Output, Communication } from './shared'
+import { preloadWASM, wasmBinary } from './shared.js'
+import type { Options, Output, Communication } from './shared.js'
 
 type FS = typeof FS
 
@@ -76,5 +76,5 @@ if (isInWorker) {
   })
 }
 
-export { preloadWASM } from './shared'
-export type { Options, Output } from './shared'
+export { preloadWASM } from './shared.js'
+export type { Options, Output } from './shared.js'
