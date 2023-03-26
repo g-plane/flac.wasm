@@ -23,14 +23,14 @@ importers:
       vite: ^4.2.1
       vite-plugin-windicss: ^1.8.10
       windicss: ^3.5.6
-      xterm: ^4.16.0
-      xterm-addon-fit: ^0.5.0
+      xterm: ^5.1.0
+      xterm-addon-fit: ^0.7.0
     dependencies:
       flac.wasm: link:../wasm/flac
       metaflac.wasm: link:../wasm/metaflac
       preact: 10.13.1
-      xterm: 4.16.0
-      xterm-addon-fit: 0.5.0_xterm@4.16.0
+      xterm: 5.1.0
+      xterm-addon-fit: 0.7.0_xterm@5.1.0
     devDependencies:
       '@gplane/tsconfig': 6.0.0
       '@preact/preset-vite': 2.5.0_preact@10.13.1+vite@4.2.1
@@ -1177,14 +1177,14 @@ packages:
     hasBin: true
     dev: true
 
-  /xterm-addon-fit/0.5.0_xterm@4.16.0:
-    resolution: {integrity: sha512-DsS9fqhXHacEmsPxBJZvfj2la30Iz9xk+UKjhQgnYNkrUIN5CYLbw7WEfz117c7+S86S/tpHPfvNxJsF5/G8wQ==}
+  /xterm-addon-fit/0.7.0_xterm@5.1.0:
+    resolution: {integrity: sha512-tQgHGoHqRTgeROPnvmtEJywLKoC/V9eNs4bLLz7iyJr1aW/QFzRwfd3MGiJ6odJd9xEfxcW36/xRU47JkD5NKQ==}
     peerDependencies:
-      xterm: ^4.0.0
+      xterm: ^5.0.0
     dependencies:
-      xterm: 4.16.0
+      xterm: 5.1.0
     dev: false
 
-  /xterm/4.16.0:
-    resolution: {integrity: sha512-nAbuigL9CYkI075mdfqpnB8cHZNKxENCj1CQ9Tm5gSvWkMtkanmRN2mkHGjSaET1/3+X9BqISFFo7Pd2mXVjiQ==}
+  /xterm/5.1.0:
+    resolution: {integrity: sha512-LovENH4WDzpwynj+OTkLyZgJPeDom9Gra4DMlGAgz6pZhIDCQ+YuO7yfwanY+gVbn/mmZIStNOnVRU/ikQuAEQ==}
     dev: false

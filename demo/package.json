@@ -12,8 +12,8 @@
     "flac.wasm": "workspace:*",
     "metaflac.wasm": "workspace:*",
     "preact": "^10.13.1",
-    "xterm": "^4.16.0",
-    "xterm-addon-fit": "^0.5.0"
+    "xterm": "^5.1.0",
+    "xterm-addon-fit": "^0.7.0"
   },
   "devDependencies": {
     "@gplane/tsconfig": "^6.0.0",
