@@ -4,7 +4,8 @@
     "noEmit": true,
     "jsx": "preserve",
     "jsxFactory": "h",
-    "jsxFragmentFactory": "Fragment"
+    "jsxFragmentFactory": "Fragment",
+    "moduleResolution": "bundler"
   },
   "include": ["src"]
 }
