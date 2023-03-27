@@ -12,7 +12,7 @@ const isInWorker = typeof importScripts !== 'undefined'
  * @param options additional options
  */
 export async function flac(args: string[], options: Options): Promise<Output> {
-  const { inputFileName, inputFile, outputFileName } = options
+  const { inputFiles, outputFileNames } = options
   let stdout = ''
   let stderr = ''
   const { FS, callMain }: { FS: FS; callMain(args: string[]): number } = await loadModule({
@@ -34,29 +34,37 @@ export async function flac(args: string[], options: Options): Promise<Output> {
     wasmBinary,
   })
 
-  if (inputFile && inputFileName) {
-    FS.writeFile(inputFileName, inputFile)
+  if (inputFiles) {
+    ;[...inputFiles.entries()].forEach(([name, data]) => {
+      FS.writeFile(name, data)
+    })
   }
 
   const exitCode = callMain(args)
 
-  if (!outputFileName) {
+  if (!outputFileNames) {
     return {
       exitCode,
       stdout,
       stderr,
-      file: null,
+      files: new Map(),
     }
   }
 
-  const { exists } = (FS as FS & { analyzePath(path: string): { exists: boolean } }).analyzePath(
-    outputFileName
-  )
   return {
     exitCode,
     stdout,
     stderr,
-    file: exists ? FS.readFile(outputFileName) : null,
+    files: new Map(
+      outputFileNames
+        .map((outputFileName) => {
+          const { exists } = (
+            FS as FS & { analyzePath(path: string): { exists: boolean } }
+          ).analyzePath(outputFileName)
+          return [outputFileName, exists ? FS.readFile(outputFileName) : null] as const
+        })
+        .filter((pair): pair is [string, Uint8Array] => pair[1] != null)
+    ),
   }
 }
 

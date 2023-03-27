@@ -47,9 +47,8 @@ export async function flac(args: string[], options: WorkerOptions): Promise<Outp
       payload: {
         args,
         options: {
-          inputFileName: options.inputFileName,
-          inputFile: options.inputFile,
-          outputFileName: options.outputFileName,
+          inputFiles: options.inputFiles,
+          outputFileNames: options.outputFileNames,
         },
       },
     })

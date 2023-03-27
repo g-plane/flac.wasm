@@ -21,9 +21,8 @@ const inputFile = new Uint8Array(await blob.arrayBuffer())
 // for Deno
 const inputFile = await Deno.readFile('file.flac')
 
-const { exitCode, stdout, stderr, file } = metaflac(['--show-tag=TITLE', 'file.flac'], {
-  fileName: 'file.flac',
-  file: inputFile,
+const { exitCode, stdout, stderr, files } = metaflac(['--show-tag=TITLE', 'file.flac'], {
+  inputFiles: new Map([['file.flac', inputFile]]),
 })
 console.log(stdout)
 ```
@@ -39,10 +38,11 @@ const inputFile = new Uint8Array(await blob.arrayBuffer())
 // for Deno
 const inputFile = await Deno.readFile('file.flac')
 
-const { exitCode, stdout, stderr, file } = metaflac(['--set-tag=TITLE=xxx', 'input.flac'], {
-  fileName: 'input.flac',
-  file: inputFile,
+const { exitCode, stdout, stderr, files } = metaflac(['--set-tag=TITLE=xxx', 'input.flac'], {
+  inputFiles: new Map([['input.flac', inputFile]]),
+  outputFileNames: ['input.flac'],
 })
+const file = files.get('input.flac')
 if (file) {
   // do something with outputted file
 }

@@ -12,7 +12,7 @@ const isInWorker = typeof importScripts !== 'undefined'
  * @param options additional options
  */
 export async function metaflac(args: string[], options: Options): Promise<Output> {
-  const { file, fileName } = options
+  const { inputFiles, outputFileNames } = options
   let stdout = ''
   let stderr = ''
   const { FS, callMain }: { FS: FS; callMain(args: string[]): number } = await loadModule({
@@ -34,29 +34,37 @@ export async function metaflac(args: string[], options: Options): Promise<Output
     wasmBinary,
   })
 
-  if (file && fileName) {
-    FS.writeFile(fileName, file)
+  if (inputFiles) {
+    ;[...inputFiles.entries()].forEach(([name, data]) => {
+      FS.writeFile(name, data)
+    })
   }
 
   const exitCode = callMain(args)
 
-  if (!fileName) {
+  if (!outputFileNames) {
     return {
       exitCode,
       stdout,
       stderr,
-      file: null,
+      files: new Map(),
     }
   }
 
-  const { exists } = (FS as FS & { analyzePath(path: string): { exists: boolean } }).analyzePath(
-    fileName
-  )
   return {
     exitCode,
     stdout,
     stderr,
-    file: exists ? FS.readFile(fileName) : null,
+    files: new Map(
+      outputFileNames
+        .map((outputFileName) => {
+          const { exists } = (
+            FS as FS & { analyzePath(path: string): { exists: boolean } }
+          ).analyzePath(outputFileName)
+          return [outputFileName, exists ? FS.readFile(outputFileName) : null] as const
+        })
+        .filter((pair): pair is [string, Uint8Array] => pair[1] != null)
+    ),
   }
 }
 

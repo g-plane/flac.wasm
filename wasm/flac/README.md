@@ -21,11 +21,11 @@ const file = new Uint8Array(await blob.arrayBuffer())
 // for Deno
 const file = await Deno.readFile('source.wav')
 
-const { exitCode, stdout, stderr, file } = flac(['-o', 'output.flac', 'input.wav'], {
-  inputFileName: 'input.wav',
-  inputFile: file,
-  outputFileName: 'output.flac',
+const { exitCode, stdout, stderr, files } = flac(['-o', 'output.flac', 'input.wav'], {
+  inputFiles: new Map([['input.wav', file]]),
+  outputFileNames: ['output.flac'],
 })
+const file = files.get('output.flac')
 if (file) {
   // do something with outputted file
 }
@@ -42,11 +42,11 @@ const file = new Uint8Array(await blob.arrayBuffer())
 // for Deno
 const file = await Deno.readFile('source.flac')
 
-const { exitCode, stdout, stderr, file } = flac(['-d', '-o', 'output.wav', 'input.flac'], {
-  inputFileName: 'input.flac',
-  inputFile: file,
-  outputFileName: 'output.wav',
+const { exitCode, stdout, stderr, files } = flac(['-d', '-o', 'output.wav', 'input.flac'], {
+  inputFiles: new Map([['input.flac', file]]),
+  outputFileNames: ['output.wav'],
 })
+const file = files.get('output.wav')
 if (file) {
   // do something with outputted file
 }

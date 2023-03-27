@@ -34,10 +34,12 @@ export default function Metaflac() {
   const handleRun = async () => {
     setIsRunning(true)
     terminalInstance.current?.clear()
-    const inputFileBytes = inputFile ? new Uint8Array(await inputFile.arrayBuffer()) : undefined
-    const { file } = await metaflac(args.trim().split(' '), {
-      fileName: fileName,
-      file: inputFileBytes,
+    const inputFiles = inputFile
+      ? new Map([[fileName, new Uint8Array(await inputFile.arrayBuffer())]])
+      : undefined
+    const { files } = await metaflac(args.trim().split(' '), {
+      inputFiles,
+      outputFileNames: [fileName],
       onStdout: (char) => {
         if (terminalInstance.current) {
           writeCharToTerminal(terminalInstance.current, char)
@@ -53,6 +55,7 @@ export default function Metaflac() {
     if (outputFile) {
       URL.revokeObjectURL(outputFile)
     }
+    const file = files.get(fileName)
     if (file) {
       setOutputFile(URL.createObjectURL(new Blob([file])))
     } else {

@@ -49,8 +49,8 @@ export async function metaflac(args: string[], options: WorkerOptions): Promise<
       payload: {
         args,
         options: {
-          fileName: options.fileName,
-          file: options.file,
+          inputFiles: options.inputFiles,
+          outputFileNames: options.outputFileNames,
         },
       },
     })

@@ -39,11 +39,12 @@ export default function Flac() {
   const handleRun = async () => {
     setIsRunning(true)
     terminalInstance.current?.clear()
-    const inputFileBytes = inputFile ? new Uint8Array(await inputFile.arrayBuffer()) : undefined
-    const { file } = await flac(args.trim().split(' '), {
-      inputFileName,
-      inputFile: inputFileBytes,
-      outputFileName,
+    const inputFiles = inputFile
+      ? new Map([[inputFileName, new Uint8Array(await inputFile.arrayBuffer())]])
+      : undefined
+    const { files } = await flac(args.trim().split(' '), {
+      inputFiles,
+      outputFileNames: [outputFileName],
       onStdout: (char) => {
         if (terminalInstance.current) {
           writeCharToTerminal(terminalInstance.current, char)
@@ -59,6 +60,7 @@ export default function Flac() {
     if (outputFile) {
       URL.revokeObjectURL(outputFile)
     }
+    const file = files.get(outputFileName)
     if (file) {
       setOutputFile(URL.createObjectURL(new Blob([file])))
     } else {
