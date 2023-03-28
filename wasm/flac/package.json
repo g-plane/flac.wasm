@@ -3,7 +3,7 @@
   "description": "flac executable built as WebAssembly.",
   "author": "Pig Fang <g-plane@hotmail.com>",
   "repository": "g-plane/flac.wasm",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "GPL-2.0",
   "type": "module",
   "module": "index.js",
