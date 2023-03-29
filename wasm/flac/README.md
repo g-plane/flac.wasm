@@ -89,6 +89,20 @@ import { preloadWorkerAndWASM } from 'flac.wasm/worker'
 preloadWorkerAndWASM()
 ```
 
+## Notes
+
+### Using with Vite
+
+You should exclude this package from dependency optimization:
+
+```js
+export default defineConfig({
+  optimizeDeps: {
+    exclude: ['flac.wasm'],
+  },
+})
+```
+
 ## License
 
 GPL v2
