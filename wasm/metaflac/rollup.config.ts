@@ -13,7 +13,9 @@ export default defineConfig({
       name: 'replace-import-meta-url',
       resolveImportMeta(prop, { moduleId }) {
         if (prop === 'url') {
-          return `new URL('${path.relative(process.cwd(), moduleId)}', self.location).href`
+          return `new URL('${
+            path.relative(process.cwd(), moduleId)
+          }', self.location).href`
         }
         return null
       },

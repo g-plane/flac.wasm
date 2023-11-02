@@ -16,11 +16,15 @@ export default function Flac() {
     preloadWorkerAndWASM()
   }, [])
 
-  const handleInputFileNameInput: JSX.GenericEventHandler<HTMLInputElement> = (event) => {
+  const handleInputFileNameInput: JSX.GenericEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
     setInputFileName((event.target as HTMLInputElement).value)
   }
 
-  const handleFileInput: JSX.GenericEventHandler<HTMLInputElement> = (event) => {
+  const handleFileInput: JSX.GenericEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
     const file = (event.target as HTMLInputElement).files?.[0]
     if (file && inputFileName === '') {
       setInputFileName(file.name)
@@ -28,11 +32,15 @@ export default function Flac() {
     setInputFile(file)
   }
 
-  const handleOutputFileNameInput: JSX.GenericEventHandler<HTMLInputElement> = (event) => {
+  const handleOutputFileNameInput: JSX.GenericEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
     setOutputFileName((event.target as HTMLInputElement).value)
   }
 
-  const handleArgsInput: JSX.GenericEventHandler<HTMLInputElement> = (event) => {
+  const handleArgsInput: JSX.GenericEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
     setArgs((event.target as HTMLInputElement).value)
   }
 
@@ -40,7 +48,10 @@ export default function Flac() {
     setIsRunning(true)
     terminalInstance.current?.clear()
     const inputFiles = inputFile
-      ? new Map([[inputFileName, new Uint8Array(await inputFile.arrayBuffer())]])
+      ? new Map([[
+        inputFileName,
+        new Uint8Array(await inputFile.arrayBuffer()),
+      ]])
       : undefined
     const { files } = await flac(args.trim().split(' '), {
       inputFiles,
@@ -73,8 +84,8 @@ export default function Flac() {
   return (
     <div class="container flex flex-col items-center">
       <div class="mb-5">
-        You can run the official FLAC tool <code>flac</code> on browser here, as running it as a
-        command line tool.
+        You can run the official FLAC tool <code>flac</code>{' '}
+        on browser here, as running it as a command line tool.
       </div>
 
       <div class="field flex flex-col w-2/5">
@@ -129,7 +140,11 @@ export default function Flac() {
       </div>
 
       <div class="flex justify-center">
-        <button class="button is-primary mt-8" disabled={isRunning} onClick={handleRun}>
+        <button
+          class="button is-primary mt-8"
+          disabled={isRunning}
+          onClick={handleRun}
+        >
           {isRunning ? 'Running...' : 'Run'}
         </button>
       </div>
@@ -137,7 +152,11 @@ export default function Flac() {
       {outputFile && (
         <div class="mt-8 flex items-center">
           <audio controls volume={0.1} src={outputFile} />
-          <a href={outputFile} download={outputFileName} class="ml-3 button is-info is-light">
+          <a
+            href={outputFile}
+            download={outputFileName}
+            class="ml-3 button is-info is-light"
+          >
             Download audio file
           </a>
         </div>

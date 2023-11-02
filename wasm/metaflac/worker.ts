@@ -1,5 +1,5 @@
 import { preloadWASM, wasmBinary } from './shared.js'
-import type { WorkerOptions, Output, Communication } from './shared.js'
+import type { Communication, Output, WorkerOptions } from './shared.js'
 
 let worker: Worker | undefined
 
@@ -9,7 +9,10 @@ let worker: Worker | undefined
  * @param args CLI arguments passed to the `flac` executable
  * @param options additional options
  */
-export async function metaflac(args: string[], options: WorkerOptions): Promise<Output> {
+export async function metaflac(
+  args: string[],
+  options: WorkerOptions,
+): Promise<Output> {
   return new Promise((resolve, reject) => {
     function handleMessageEvent({ data }: { data: Communication }) {
       switch (data.kind) {
@@ -59,7 +62,10 @@ export async function metaflac(args: string[], options: WorkerOptions): Promise<
 
 function initWebWorker(): Worker {
   if (!worker) {
-    worker = new Worker(new URL('./workerized.js', import.meta.url), /* @vite-ignore */ {})
+    worker = new Worker(
+      new URL('./workerized.js', import.meta.url),
+      /* @vite-ignore */ {}
+    )
   }
   return worker
 }

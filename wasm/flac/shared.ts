@@ -24,7 +24,7 @@ export let wasmBinary: ArrayBuffer | undefined
  * @param source URL to the WebAssembly file, or an `ArrayBuffer` of the WebAssembly file
  */
 export async function preloadWASM(
-  source: string | ArrayBuffer = new URL('./flac.wasm', import.meta.url).href
+  source: string | ArrayBuffer = new URL('./flac.wasm', import.meta.url).href,
 ) {
   if (wasmBinary) {
     return
@@ -42,8 +42,11 @@ export async function preloadWASM(
 
 /** @internal */
 export type Communication =
-  | { kind: 'execute'; payload: { args: string[]; options: WorkerOptions } }
-  | { kind: 'complete'; payload: Output }
-  | { kind: 'stdout'; payload: number }
-  | { kind: 'stderr'; payload: number }
-  | { kind: 'preload-wasm'; payload: { wasm: string | ArrayBuffer | undefined } }
+  | { kind: 'execute', payload: { args: string[], options: WorkerOptions } }
+  | { kind: 'complete', payload: Output }
+  | { kind: 'stdout', payload: number }
+  | { kind: 'stderr', payload: number }
+  | {
+    kind: 'preload-wasm',
+    payload: { wasm: string | ArrayBuffer | undefined },
+  }

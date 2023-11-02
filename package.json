@@ -5,11 +5,11 @@
   "repository": "g-plane/flac.wasm",
   "license": "GPL-2.0",
   "scripts": {
-    "fmt": "prettier --write **/*.ts **/*.md"
+    "fmt": "dprint fmt"
   },
   "devDependencies": {
     "@types/node": "^17.0.9",
-    "prettier": "^2.8.7",
+    "dprint": "^0.42.5",
     "typescript": "^5.0.2"
   }
 }
