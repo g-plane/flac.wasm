@@ -31,7 +31,7 @@ if (file) {
 }
 ```
 
-### Dencoding
+### Decoding
 
 ```ts
 import { flac } from 'flac.wasm'
