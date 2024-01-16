@@ -24,8 +24,7 @@ export let wasmBinary: ArrayBuffer | undefined
  * @param source URL to the WebAssembly file, or an `ArrayBuffer` of the WebAssembly file
  */
 export async function preloadWASM(
-  source: string | ArrayBuffer =
-    new URL('./metaflac.wasm', import.meta.url).href,
+  source: string | ArrayBuffer = new URL('./metaflac.wasm', import.meta.url).href,
 ) {
   if (wasmBinary) {
     return

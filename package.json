@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@types/node": "^17.0.9",
-    "dprint": "^0.42.5",
+    "dprint": "^0.45.0",
     "typescript": "^5.0.2"
   }
 }

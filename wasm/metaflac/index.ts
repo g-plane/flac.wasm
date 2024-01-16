@@ -18,25 +18,24 @@ export async function metaflac(
   const { inputFiles, outputFileNames } = options
   let stdout = ''
   let stderr = ''
-  const { FS, callMain }: { FS: FS, callMain(args: string[]): number } =
-    await loadModule({
-      preRun: ({ FS }: { FS: FS }) => {
-        if (isInWorker) {
-          FS.init(
-            null,
-            (c) => self.postMessage({ kind: 'stdout', payload: c }),
-            (c) => self.postMessage({ kind: 'stderr', payload: c })
-          )
-        }
-      },
-      print(text: string) {
-        stdout += text + '\n'
-      },
-      printErr(text: string) {
-        stderr += text + '\n'
-      },
-      wasmBinary,
-    })
+  const { FS, callMain }: { FS: FS, callMain(args: string[]): number } = await loadModule({
+    preRun: ({ FS }: { FS: FS }) => {
+      if (isInWorker) {
+        FS.init(
+          null,
+          (c) => self.postMessage({ kind: 'stdout', payload: c }),
+          (c) => self.postMessage({ kind: 'stderr', payload: c })
+        )
+      }
+    },
+    print(text: string) {
+      stdout += text + '\n'
+    },
+    printErr(text: string) {
+      stderr += text + '\n'
+    },
+    wasmBinary,
+  })
 
   if (inputFiles) {
     ;[...inputFiles.entries()].forEach(([name, data]) => {
