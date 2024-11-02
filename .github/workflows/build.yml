@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
       - name: Install Linux packages
@@ -15,12 +15,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libtool-bin libogg-dev doxygen
       - name: Setup emscripten
-        uses: mymindstorm/setup-emsdk@v11
+        uses: mymindstorm/setup-emsdk@v14
         with:
           update: true
       - run: emcc -v
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v4.0.0
         with:
           version: latest
           run_install: true
@@ -32,7 +32,7 @@ jobs:
           pnpm --filter=demo build
       - name: Deploy demo
         if: github.event_name == 'push'
-        uses: amondnet/vercel-action@v20
+        uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
