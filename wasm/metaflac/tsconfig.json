@@ -1,8 +1,9 @@
 {
   "extends": "@gplane/tsconfig",
   "compilerOptions": {
-    "module": "esnext",
-    "sourceMap": false
+    "rootDir": ".",
+    "sourceMap": false,
+    "types": ["emscripten"]
   },
-  "exclude": ["rollup.config.ts"]
+  "files": ["./index.ts", "./shared.ts", "./worker.ts"]
 }

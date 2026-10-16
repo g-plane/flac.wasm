@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "license": "GPL-2.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -11,16 +12,16 @@
   "dependencies": {
     "flac.wasm": "workspace:*",
     "metaflac.wasm": "workspace:*",
-    "preact": "^10.13.1",
-    "xterm": "^5.1.0",
-    "xterm-addon-fit": "^0.7.0"
+    "preact": "^11.0.1",
+    "xterm": "^5.3.0",
+    "xterm-addon-fit": "^0.8.0"
   },
   "devDependencies": {
-    "@gplane/tsconfig": "^6.0.0",
-    "@preact/preset-vite": "^2.5.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.2.1",
-    "vite-plugin-windicss": "^1.8.10",
+    "@gplane/tsconfig": "catalog:",
+    "@preact/preset-vite": "^2.10.6",
+    "typescript": "catalog:",
+    "vite": "^8.3.4",
+    "vite-plugin-windicss": "^1.9.4",
     "windicss": "^3.5.6"
   }
 }

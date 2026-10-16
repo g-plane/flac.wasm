@@ -1,3 +1,15 @@
 packages:
   - demo
   - wasm/*
+
+allowBuilds:
+  '@swc/core': false
+  dprint: false
+
+catalog:
+  "@gplane/tsconfig": ^6.4.2
+  "@swc/core": ^1.16.18
+  "@types/emscripten": ^1.41.6
+  rollup: ^4.64.6
+  rollup-plugin-swc3: ^0.12.1
+  typescript: ^7.0.2
