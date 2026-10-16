@@ -1,4 +1,5 @@
 import { metaflac, preloadWorkerAndWASM } from 'metaflac.wasm/worker'
+import type { InputEventHandler } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 import { useXterm } from '../hooks/useXterm'
 import { writeCharToTerminal } from '../utils'
@@ -17,13 +18,13 @@ export default function Metaflac() {
     preloadWorkerAndWASM()
   }, [])
 
-  const handleFileNameInput: JSX.GenericEventHandler<HTMLInputElement> = (
+  const handleFileNameInput: InputEventHandler<HTMLInputElement> = (
     event,
   ) => {
     setFileName((event.target as HTMLInputElement).value)
   }
 
-  const handleFileInput: JSX.GenericEventHandler<HTMLInputElement> = (
+  const handleFileInput: InputEventHandler<HTMLInputElement> = (
     event,
   ) => {
     const file = (event.target as HTMLInputElement).files?.[0]
@@ -33,7 +34,7 @@ export default function Metaflac() {
     setInputFile(file)
   }
 
-  const handleArgsInput: JSX.GenericEventHandler<HTMLInputElement> = (
+  const handleArgsInput: InputEventHandler<HTMLInputElement> = (
     event,
   ) => {
     setArgs((event.target as HTMLInputElement).value)
@@ -65,7 +66,7 @@ export default function Metaflac() {
     }
     const file = files.get(fileName)
     if (file) {
-      setOutputFile(URL.createObjectURL(new Blob([file])))
+      setOutputFile(URL.createObjectURL(new Blob([new Uint8Array(file)])))
     } else {
       setOutputFile(undefined)
     }

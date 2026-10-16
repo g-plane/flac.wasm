@@ -1,4 +1,5 @@
 import { flac, preloadWorkerAndWASM } from 'flac.wasm/worker'
+import type { InputEventHandler } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 import { useXterm } from '../hooks/useXterm'
 import { writeCharToTerminal } from '../utils'
@@ -16,13 +17,13 @@ export default function Flac() {
     preloadWorkerAndWASM()
   }, [])
 
-  const handleInputFileNameInput: JSX.GenericEventHandler<HTMLInputElement> = (
+  const handleInputFileNameInput: InputEventHandler<HTMLInputElement> = (
     event,
   ) => {
     setInputFileName((event.target as HTMLInputElement).value)
   }
 
-  const handleFileInput: JSX.GenericEventHandler<HTMLInputElement> = (
+  const handleFileInput: InputEventHandler<HTMLInputElement> = (
     event,
   ) => {
     const file = (event.target as HTMLInputElement).files?.[0]
@@ -32,13 +33,13 @@ export default function Flac() {
     setInputFile(file)
   }
 
-  const handleOutputFileNameInput: JSX.GenericEventHandler<HTMLInputElement> = (
+  const handleOutputFileNameInput: InputEventHandler<HTMLInputElement> = (
     event,
   ) => {
     setOutputFileName((event.target as HTMLInputElement).value)
   }
 
-  const handleArgsInput: JSX.GenericEventHandler<HTMLInputElement> = (
+  const handleArgsInput: InputEventHandler<HTMLInputElement> = (
     event,
   ) => {
     setArgs((event.target as HTMLInputElement).value)
@@ -73,7 +74,7 @@ export default function Flac() {
     }
     const file = files.get(outputFileName)
     if (file) {
-      setOutputFile(URL.createObjectURL(new Blob([file])))
+      setOutputFile(URL.createObjectURL(new Blob([new Uint8Array(file)])))
     } else {
       setOutputFile(undefined)
     }
