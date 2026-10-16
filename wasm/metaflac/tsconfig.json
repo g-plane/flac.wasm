@@ -1,6 +1,7 @@
 {
   "extends": "@gplane/tsconfig",
   "compilerOptions": {
+    "outDir": ".",
     "rootDir": ".",
     "sourceMap": false,
     "types": ["emscripten"]
