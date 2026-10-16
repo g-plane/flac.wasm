@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+      - name: Install Linux packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libtool-bin libogg-dev doxygen
+      - name: Setup emscripten
+        uses: mymindstorm/setup-emsdk@v16
+        with:
+          update: true
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: latest
+          run_install: true
+      - name: Build
+        run: ./build.sh
+      - name: Publish flac.wasm
+        run: npx npm@latest publish
+        working-directory: ./wasm/flac
+      - name: Publish metaflac.wasm
+        run: npx npm@latest publish
+        working-directory: ./wasm/metaflac
