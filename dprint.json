@@ -1,4 +1,7 @@
 {
-  "extends": "https://dprint.gplane.win/2024-10.json",
-  "excludes": ["*.d.ts", "*.js", "flac/"]
+  "extends": "https://dprint.gplane.win/2026-03.json",
+  "typescript": {
+    "jsx.quoteStyle": "preferDouble"
+  },
+  "excludes": ["*.d.ts", "*.js", "flac/", "*.svg"]
 }

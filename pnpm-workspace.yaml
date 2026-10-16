@@ -3,7 +3,7 @@ packages:
   - wasm/*
 
 allowBuilds:
-  '@swc/core': false
+  "@swc/core": false
   dprint: false
 
 catalog:

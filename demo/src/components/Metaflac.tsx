@@ -7,7 +7,7 @@ export default function Metaflac() {
   const [fileName, setFileName] = useState('input.flac')
   const [inputFile, setInputFile] = useState<File | undefined>(undefined)
   const [args, setArgs] = useState(
-    '--show-tag=TITLE --show-tag=ARTIST --show-tag=ALBUM input.flac'
+    '--show-tag=TITLE --show-tag=ARTIST --show-tag=ALBUM input.flac',
   )
   const [isRunning, setIsRunning] = useState(false)
   const [outputFile, setOutputFile] = useState<string | undefined>(undefined)

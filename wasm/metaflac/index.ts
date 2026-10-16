@@ -24,7 +24,7 @@ export async function metaflac(
         FS.init(
           null,
           (c) => self.postMessage({ kind: 'stdout', payload: c }),
-          (c) => self.postMessage({ kind: 'stderr', payload: c })
+          (c) => self.postMessage({ kind: 'stderr', payload: c }),
         )
       }
     },
@@ -69,7 +69,7 @@ export async function metaflac(
             exists ? FS.readFile(outputFileName) : null,
           ] as const
         })
-        .filter((pair): pair is [string, Uint8Array] => pair[1] != null)
+        .filter((pair): pair is [string, Uint8Array] => pair[1] != null),
     ),
   }
 }
@@ -89,7 +89,7 @@ if (isInWorker) {
           preloadWASM(data.payload.wasm)
           break
       }
-    }
+    },
   )
 }
 

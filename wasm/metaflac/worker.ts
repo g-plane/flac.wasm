@@ -37,7 +37,7 @@ export async function metaflac(
         reject(error)
         worker.terminate()
       },
-      { once: true }
+      { once: true },
     )
     worker.addEventListener(
       'messageerror',
@@ -45,7 +45,7 @@ export async function metaflac(
         reject(data)
         worker.terminate()
       },
-      { once: true }
+      { once: true },
     )
     worker.postMessage({
       kind: 'execute',
@@ -64,7 +64,7 @@ function initWebWorker(): Worker {
   if (!worker) {
     worker = new Worker(
       new URL('./workerized.js', import.meta.url),
-      /* @vite-ignore */ {}
+      /* @vite-ignore */ {},
     )
   }
   return worker
