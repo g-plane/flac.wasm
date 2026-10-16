@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: true
       - name: Install Linux packages
@@ -15,12 +15,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libtool-bin libogg-dev doxygen
       - name: Setup emscripten
-        uses: mymindstorm/setup-emsdk@v14
+        uses: mymindstorm/setup-emsdk@v16
         with:
           update: true
       - run: emcc -v
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4.0.0
+        uses: pnpm/action-setup@v6
         with:
           version: latest
           run_install: true
